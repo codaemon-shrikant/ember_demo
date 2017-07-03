@@ -1,0 +1,1 @@
+export default Ember.HTMLBars.template({"id":"wx/JlvcV","block":"{\"statements\":[[1,[26,[\"comp-header-nav\"]],false],[0,\"\\n\"],[0,\"\\n\"],[1,[26,[\"outlet\"]],false]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}","meta":{"moduleName":"ember-demo/templates/application.hbs"}});

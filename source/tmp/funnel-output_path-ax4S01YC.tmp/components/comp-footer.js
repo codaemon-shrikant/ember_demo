@@ -1,0 +1,1 @@
+/var/www/ember_demo/source/ember-demo/tmp/funnel-input_base_path-T6Yql3IN.tmp/components/comp-footer.js

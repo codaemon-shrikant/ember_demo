@@ -1,0 +1,109 @@
+
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 text-center">
+                    
+                </div>
+                <div class="col-lg-6 text-center">
+                    <h2 class="section-heading">Contact Us</h2>
+                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{#if isSubmitted}}
+                                <div class="panel panel-success">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">
+                                            Thank you for contacting us.
+                                        </h3>
+                                        <p>
+                                            We have received your enquiry and will respond to you within 24 hours.  For urgent enquiries please call us on telephone numbers .
+                                        </p>
+                                    </div>
+                                </div>  
+                            {{else}}
+                                <div id="form-container">
+                                    <form name="sentMessage">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                                <input type="text" class="form-control" placeholder="Your Name" id="name" required data-validation-required-message="Please enter your name.">
+                                            
+                                            </div>
+                                            <p class="help-block text-danger"></p>
+                                            
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                                <input type="email" class="form-control" placeholder="Your Email" id="email" required data-validation-required-message="Please enter your email address.">
+                                            </div>
+                                            <p class="help-block text-danger"></p>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                                                <input type="tel" class="form-control" placeholder="Your Phone" id="phone" required data-validation-required-message="Please enter your phone number.">
+                                            </div>
+                                            <p class="help-block text-danger"></p>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                                <textarea class="form-control" placeholder="Brief description of your requirement..." id="message" required data-validation-required-message="Please enter a message."></textarea>
+                                            </div>
+                                            <p class="help-block text-danger"></p>
+                                        </div>
+                                        <div class="form-group">
+                                            <button  {{action "submitContact"}} type="submit" class="btn btn-lg btn-submit"><i class="fa fa-file-text-o"></i> Get a quote </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            {{/if}}
+                        </div>
+                        <div class="col-md-3">
+                            <h4 class="service-heading">Address</h4>
+                            <p class="text-muted"> <i class="fa fa-map-marker"></i>
+                                307 5th Ave, 16th Floor <br>
+                                 New York, NY 10016
+                            </p>
+                            <h4 class="service-heading">Phone</h4>
+                            <p class="text-muted"> 
+                                <i class="fa fa-phone"></i> 212-222-1234
+                            </p>
+                            <h4 class="service-heading">Fax</h4>
+                            <p class="text-muted"> 
+                                <i class="fa fa-fax"></i> 212-630-7862
+                            </p>    
+                        </div>
+                        <div class="col-md-3">
+                            <h4 class="service-heading">Email</h4>
+                            <p class="text-muted"> 
+                                <i class="fa fa-envelope"></i> info@emberdemo.com
+                            </p>
+                            <h4 class="service-heading">Connect</h4>
+                            <ul class="list-inline social-buttons">
+                                <li><a href="#"><i class="fa fa-facebook"></i></a>
+                                </li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a>
+                                </li>
+                                <li><a href="#"><i class="fa fa-linkedin"></i></a>
+                                </li>
+                                <li><a href="#"><i class="fa fa fa-pinterest-p"></i></a>
+                                </li>
+                                <li><a href="#"><i class="fa fa-vimeo"></i></a>
+                                </li>
+                            </ul>   
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
