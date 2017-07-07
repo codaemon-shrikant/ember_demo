@@ -14,7 +14,7 @@ header {
   color: #fff; }
 
 .intro-text .section-subheading {
-  width: 50%;
+  width: 65%;
   margin: auto;
   padding: 20px 0;
   font-size: 18px; }
@@ -26,8 +26,9 @@ header {
   background-color: #222222; }
 
 #rendering-web .btn-learn-more {
-  border: 1px solid #000;
-  color: #fff; }
+  border: 1px solid #fff;
+  color: #fff;
+  background: transparent; }
 
 btn:active, .btn:hover {
   background-image: none;
@@ -98,11 +99,31 @@ header .btn-learn-more {
   background-color: #5b18ba;
   color: #fff; }
 
+#contact .btn-contact {
+  background: transparent;
+  border: 2px solid #7b7b7b;
+  color: #7b7b7b;
+  text-align: center;
+  font-family: "Roboto-Bold";
+  font-size: 26px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -o-border-radius: 10px;
+  -ms-border-radius: 10px; }
+
+#contact .btn-contact:hover {
+  background: #fff;
+  border: 2px solid #fff;
+  color: #5b18ba; }
+
 #team .text-muted, h3 .text-muted {
   color: #333; }
 
 .section-heading, h3, h2 {
-  text-transform: none; }
+  text-transform: none;
+  font-weight: normal; }
 
 .section-subheading {
   font-family: inherit;
@@ -113,14 +134,10 @@ header .btn-learn-more {
   font-style: normal; }
 
 footer {
-  background-color: #222; }
+  background-color: #1f1f1f; }
 
 .border-top {
-  border-top: 1px solid #ccc; }
-
-.copyright-text {
-  margin: 10px 0 0;
-  padding: 10px 0 0; }
+  border-top: 1px solid #333; }
 
 .portfolio-modal {
   color: #333; }
@@ -143,10 +160,12 @@ footer {
   color: #999 !important;
   text-transform: none !important; }
 
-ul.social-buttons li a {
-  border: 1px solid #5b18ba; }
+#contact ul.social-buttons li a {
+  border: 1px solid #ccc;
+  background: #ccc;
+  color: #222; }
 
-ul.social-buttons li a:hover {
+#contact ul.social-buttons li a:hover {
   background-color: #fff;
   color: #5b18ba; }
 
@@ -164,5 +183,72 @@ ul.social-buttons li a:hover {
 
 img.img-responsive.img-circle:hover {
   border-color: #5b18ba; }
+
+/* Popup CSS */
+.the-price h1 {
+  margin: 10px 0; }
+
+.the-price small {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 10px;
+  display: inline-block; }
+
+.btn-signup {
+  background: #5c1bb7;
+  border: 1px solid #5c1bb7;
+  color: #fff;
+  padding: 8px 16px;
+  font-size: 18px;
+  display: inline-block;
+  border-radius: 4px; }
+
+.btn-signup:hover {
+  color: #333;
+  border: 1px solid #5c1bb7;
+  background: transparent;
+  text-decoration: none; }
+
+.portfolio-modal .table {
+  margin: 0; }
+
+.portfolio-modal .panel-body {
+  padding: 0; }
+
+.portfolio-modal .table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: #ddd; }
+
+.portfolio-modal .panel-footer {
+  background: transparent;
+  border-top: 1px solid #ddd;
+  color: #333; }
+
+@media only screen and (max-device-width: 768px) {
+  #contact ul.social-buttons li {
+    margin-bottom: 10px; } }
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 767px) {
+  #rendering-web {
+    text-align: center; }
+  #rendering-web h2 {
+    text-align: center; }
+  #contact p.text-muted {
+    text-align: left; }
+  .submit-contact-button {
+    text-align: center; }
+  .render-web-img {
+    display: inline;
+    max-width: 70%; } }
+
+@media only screen and (max-device-width: 320px) {
+  .clients .list-inline li {
+    padding: 0 50px; }
+  #contact p.text-muted {
+    text-align: left; }
+  .submit-contact-button {
+    text-align: center; }
+  .render-web-img {
+    display: inline;
+    max-width: 70%; } }
 
 /*# sourceMappingURL=ember-demo.css.map */

@@ -16,6 +16,7 @@ module.exports = function(defaults) {
   //
   app.import(app.bowerDirectory + '/bootstrap/dist/css/bootstrap.css');
   app.import(app.bowerDirectory + '/agency/css/agency.min.css');
+    app.import(app.bowerDirectory + '/agency/css/fonts.css');
   app.import(app.bowerDirectory + '/agency/font-awesome/css/font-awesome.min.css');
   
   app.import(app.bowerDirectory + '/bootstrap/dist/js/bootstrap.js');

@@ -1,49 +1,47 @@
-
-    <!-- Team Section -->
-    <section id="team" class="bg-light-gray">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 text-center">
-                    
-                </div>
-                <div class="col-lg-6 text-center">
-                    <h2 class="section-heading">Our Team</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</h3>
-                </div>
-            </div>
-            <div class="row">
-                {{#each teamMembers as |teamMmber|}}
-                    <div class="col-lg-3 col-md-6 col-sm-12">
-                        <div class="team-member">
-                            <img src="{{teamMmber.avatar}}" class="img-responsive img-circle" alt="">
-                            <h3>{{teamMmber.name}}</h3>
-                            <h4>{{teamMmber.designation}}</h4>
-                            <p class="text-muted">{{teamMmber.about}}</p>
-                            <ul class="list-inline social-buttons">
-                                <li><a href="{{teamMmber.facebook}}"><i class="fa fa-facebook"></i></a>
-                                </li>
-                                <li><a href="{{teamMmber.twitter}}"><i class="fa fa-twitter"></i></a>
-                                </li>
-                                <li><a href="{{teamMmber.linkedin}}"><i class="fa fa-linkedin"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                {{/each}}
-            </div>
-        </div>
-    </section>
-    <!-- Clients Aside -->
-    <aside class="clients">
-        <div class="container text-center">
-            <ul class="list-inline">
-                {{#each companies as |client|}}
-                    <li>
-                        <a href="#">
-                            <img src="{{client.client_logo}}" class="img-responsive img-centered" alt="">
-                        </a>
-                    </li>
-                 {{/each}}
-            </ul>
-        </div>
-    </aside>
+<!-- Team Section -->
+<section id="team" class="bg-light-gray">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-2 text-center">
+			</div>
+			<div class="col-lg-8 text-center">
+				<h2 class="section-heading">Our Team</h2>
+				<h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</h3>
+			</div>
+		</div>
+		<div class="row">
+			{{#each teamMembers as |teamMmber|}}
+				<div class="col-lg-3 col-md-6 col-sm-6">
+					<div class="team-member">
+						<img src="{{teamMmber.avatar}}" class="img-responsive img-circle" alt="">
+						<h3>{{teamMmber.name}}</h3>
+						<h4>{{teamMmber.designation}}</h4>
+						<p class="text-muted">{{teamMmber.about}}</p>
+						<ul class="list-inline social-buttons">
+							<li><a href="{{teamMmber.facebook}}"><i class="fa fa-facebook"></i></a>
+							</li>
+							<li><a href="{{teamMmber.twitter}}"><i class="fa fa-twitter"></i></a>
+							</li>
+							<li><a href="{{teamMmber.linkedin}}"><i class="fa fa-linkedin"></i></a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			{{/each}}
+		</div>
+	</div>
+</section>
+<!-- Clients Aside -->
+<aside class="clients">
+	<div class="container text-center">
+		<ul class="list-inline">
+			{{#each companies as |client|}}
+				<li>
+					<a href="#">
+						<img src="{{client.client_logo}}" class="img-responsive img-centered" alt="">
+					</a>
+				</li>
+			 {{/each}}
+		</ul>
+	</div>
+</aside>
