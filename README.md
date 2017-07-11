@@ -25,6 +25,10 @@ Updates 7 July 2017
 3) Restructured footer section.
 4) Modified Font Size so that it looks proper in all views.
 
-Remaining things 
-1) Validation for the contact us form.
+Update 11 July 2017
+1) Installed ember-validations dependency for validation using
+ember install ember-validations
+2) modified contact component and template to implement validation
+
+thanks
 
