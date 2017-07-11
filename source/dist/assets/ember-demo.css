@@ -91,7 +91,7 @@ header .btn-learn-more {
   color: #ccc; }
 
 #contact input, #contact textarea {
-  color: #333;
+  color: #ccc;
   font-weight: bold; }
 
 .btn-submit, .btn-submit:hover, .btn-submit:focus {

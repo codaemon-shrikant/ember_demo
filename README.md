@@ -26,7 +26,8 @@ Updates 7 July 2017
 4) Modified Font Size so that it looks proper in all views.
 
 Update 11 July 2017
-1) Installed ember-validations dependency for validation using
+
+1) Installed ember-validations dependency for validation using 
 ember install ember-validations
 2) modified contact component and template to implement validation
 
