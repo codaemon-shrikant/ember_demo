@@ -12,7 +12,7 @@ define('ember-demo/tests/app.lint-test', [], function () {
 
   QUnit.test('components/comp-contact.js', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'components/comp-contact.js should pass ESLint\n\n9:4 - Duplicate key \'presence\'. (no-dupe-keys)\n13:4 - Duplicate key \'presence\'. (no-dupe-keys)\n18:4 - Duplicate key \'presence\'. (no-dupe-keys)\n23:4 - Duplicate key \'presence\'. (no-dupe-keys)');
+    assert.ok(false, 'components/comp-contact.js should pass ESLint\n\n20:4 - Duplicate key \'presence\'. (no-dupe-keys)');
   });
 
   QUnit.test('components/comp-footer.js', function (assert) {

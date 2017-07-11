@@ -31,8 +31,6 @@ define('ember-demo/components/comp-contact', ['exports', 'ember', 'ember-validat
 		value: true
 	});
 
-	var _email, _phone;
-
 	function _defineProperty(obj, key, value) {
 		if (key in obj) {
 			Object.defineProperty(obj, key, {
@@ -51,15 +49,17 @@ define('ember-demo/components/comp-contact', ['exports', 'ember', 'ember-validat
 	exports.default = _ember.default.Component.extend(_emberValidations.default, {
 		showErrors: false,
 		validations: {
-			name: _defineProperty({
-				presence: true
-			}, 'presence', { message: 'Please enter your name' }),
-			email: (_email = {
-				presence: true
-			}, _defineProperty(_email, 'presence', { message: 'Please enter Email' }), _defineProperty(_email, 'format', { with: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, allowBlank: true, message: 'Please enter valid email address' }), _email),
-			phone: (_phone = {
-				presence: true
-			}, _defineProperty(_phone, 'presence', { message: 'Please enter Phone number' }), _defineProperty(_phone, 'format', { with: /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/, allowBlank: true, message: 'Please enter valid 10 digit phone number' }), _phone),
+			name: {
+				presence: { message: 'Please enter your name' }
+			},
+			email: {
+				presence: { message: 'Please enter Email' },
+				format: { with: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, allowBlank: true, message: 'Please enter valid email address' }
+			},
+			phone: {
+				presence: { message: 'Please enter Phone number' },
+				format: { with: /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/, allowBlank: true, message: 'Please enter valid 10 digit phone number' }
+			},
 			description: _defineProperty({
 				presence: true
 			}, 'presence', { message: 'Please enter description' })
@@ -557,6 +557,6 @@ catch(err) {
 });
 
 if (!runningTests) {
-  require("ember-demo/app")["default"].create({"name":"ember-demo","version":"0.0.0+18f67625"});
+  require("ember-demo/app")["default"].create({"name":"ember-demo","version":"0.0.0+c9bf763e"});
 }
 //# sourceMappingURL=ember-demo.map
