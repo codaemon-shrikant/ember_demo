@@ -12,7 +12,7 @@ define('ember-demo/tests/app.lint-test', [], function () {
 
   QUnit.test('components/comp-contact.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'components/comp-contact.js should pass ESLint\n\n');
+    assert.ok(false, 'components/comp-contact.js should pass ESLint\n\n9:4 - Duplicate key \'presence\'. (no-dupe-keys)\n13:4 - Duplicate key \'presence\'. (no-dupe-keys)\n18:4 - Duplicate key \'presence\'. (no-dupe-keys)\n23:4 - Duplicate key \'presence\'. (no-dupe-keys)');
   });
 
   QUnit.test('components/comp-footer.js', function (assert) {
@@ -136,6 +136,78 @@ define('ember-demo/tests/helpers/start-app', ['exports', 'ember', 'ember-demo/ap
       application.injectTestHelpers();
       return application;
     });
+  }
+});
+define('ember-demo/tests/helpers/validate-properties', ['exports', 'ember', 'ember-qunit'], function (exports, _ember, _emberQunit) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.testValidPropertyValues = testValidPropertyValues;
+  exports.testInvalidPropertyValues = testInvalidPropertyValues;
+
+
+  var run = _ember.default.run;
+
+  function validateValues(object, propertyName, values, isTestForValid) {
+    var promise = null;
+    var validatedValues = [];
+
+    values.forEach(function (value) {
+      function handleValidation(errors) {
+        var hasErrors = object.get('errors.' + propertyName + '.firstObject');
+        if (hasErrors && !isTestForValid || !hasErrors && isTestForValid) {
+          validatedValues.push(value);
+        }
+      }
+
+      run(object, 'set', propertyName, value);
+
+      var objectPromise = null;
+      run(function () {
+        objectPromise = object.validate().then(handleValidation, handleValidation);
+      });
+
+      // Since we are setting the values in a different run loop as we are validating them,
+      // we need to chain the promises so that they run sequentially. The wrong value will
+      // be validated if the promises execute concurrently
+      promise = promise ? promise.then(objectPromise) : objectPromise;
+    });
+
+    return promise.then(function () {
+      return validatedValues;
+    });
+  }
+
+  function testPropertyValues(propertyName, values, isTestForValid, context) {
+    var validOrInvalid = isTestForValid ? 'Valid' : 'Invalid';
+    var testName = validOrInvalid + ' ' + propertyName;
+
+    (0, _emberQunit.test)(testName, function (assert) {
+      var object = this.subject();
+
+      if (context && typeof context === 'function') {
+        context(object);
+      }
+
+      // Use QUnit.dump.parse so null and undefined can be printed as literal 'null' and
+      // 'undefined' strings in the assert message.
+      var valuesString = QUnit.dump.parse(values).replace(/\n(\s+)?/g, '').replace(/,/g, ', ');
+      var assertMessage = 'Expected ' + propertyName + ' to have ' + validOrInvalid.toLowerCase() + ' values: ' + valuesString;
+
+      return validateValues(object, propertyName, values, isTestForValid).then(function (validatedValues) {
+        assert.deepEqual(validatedValues, values, assertMessage);
+      });
+    });
+  }
+
+  function testValidPropertyValues(propertyName, values, context) {
+    testPropertyValues(propertyName, values, true, context);
+  }
+
+  function testInvalidPropertyValues(propertyName, values, context) {
+    testPropertyValues(propertyName, values, false, context);
   }
 });
 define('ember-demo/tests/integration/components/comp-contact-test', ['ember-qunit'], function (_emberQunit) {
@@ -419,9 +491,28 @@ define('ember-demo/tests/tests.lint-test', [], function () {
     assert.ok(true, 'test-helper.js should pass ESLint\n\n');
   });
 
+  QUnit.test('unit/models/contact-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/models/contact-test.js should pass ESLint\n\n');
+  });
+
   QUnit.test('unit/routes/index-test.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'unit/routes/index-test.js should pass ESLint\n\n');
+  });
+});
+define('ember-demo/tests/unit/models/contact-test', ['ember-qunit'], function (_emberQunit) {
+  'use strict';
+
+  (0, _emberQunit.moduleForModel)('contact', 'Unit | Model | contact', {
+    // Specify the other units that are required for this test.
+    needs: []
+  });
+
+  (0, _emberQunit.test)('it exists', function (assert) {
+    var model = this.subject();
+    // let store = this.store();
+    assert.ok(!!model);
   });
 });
 define('ember-demo/tests/unit/routes/index-test', ['ember-qunit'], function (_emberQunit) {

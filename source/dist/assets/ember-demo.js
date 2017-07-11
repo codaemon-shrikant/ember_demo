@@ -24,17 +24,57 @@ define('ember-demo/app', ['exports', 'ember', 'ember-demo/resolver', 'ember-load
 
   exports.default = App;
 });
-define('ember-demo/components/comp-contact', ['exports', 'ember'], function (exports, _ember) {
+define('ember-demo/components/comp-contact', ['exports', 'ember', 'ember-validations'], function (exports, _ember, _emberValidations) {
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	exports.default = _ember.default.Component.extend({
+
+	var _email, _phone;
+
+	function _defineProperty(obj, key, value) {
+		if (key in obj) {
+			Object.defineProperty(obj, key, {
+				value: value,
+				enumerable: true,
+				configurable: true,
+				writable: true
+			});
+		} else {
+			obj[key] = value;
+		}
+
+		return obj;
+	}
+
+	exports.default = _ember.default.Component.extend(_emberValidations.default, {
+		showErrors: false,
+		validations: {
+			name: _defineProperty({
+				presence: true
+			}, 'presence', { message: 'Please enter your name' }),
+			email: (_email = {
+				presence: true
+			}, _defineProperty(_email, 'presence', { message: 'Please enter Email' }), _defineProperty(_email, 'format', { with: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, allowBlank: true, message: 'Please enter valid email address' }), _email),
+			phone: (_phone = {
+				presence: true
+			}, _defineProperty(_phone, 'presence', { message: 'Please enter Phone number' }), _defineProperty(_phone, 'format', { with: /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/, allowBlank: true, message: 'Please enter valid 10 digit phone number' }), _phone),
+			description: _defineProperty({
+				presence: true
+			}, 'presence', { message: 'Please enter description' })
+		},
 		actions: {
 			submitContact: function submitContact() {
-				//write submit api call here 
-				this.set('isSubmitted', true);
+				var _this = this;
+
+				this.validate().then(function () {
+					//write submit api call here 
+					_this.set('isSubmitted', true);
+				}).catch(function () {
+					_this.set("showErrors", true);
+					//console.log(this.get("errors"));	
+				});
 			}
 		}
 	});
@@ -407,6 +447,22 @@ define('ember-demo/services/ajax', ['exports', 'ember-ajax/services/ajax'], func
     }
   });
 });
+define('ember-demo/services/validations', ['exports', 'ember'], function (exports, _ember) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+
+  var set = _ember.default.set;
+
+  exports.default = _ember.default.Service.extend({
+    init: function init() {
+      set(this, 'cache', {});
+    }
+  });
+});
 define("ember-demo/templates/application", ["exports"], function (exports) {
   "use strict";
 
@@ -421,7 +477,7 @@ define("ember-demo/templates/components/comp-contact", ["exports"], function (ex
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "TAe3BUse", "block": "{\"statements\":[[4,\" Contact Section \"],[0,\"\\n\"],[11,\"section\",[]],[15,\"id\",\"contact\"],[13],[0,\"\\n\\t\"],[11,\"div\",[]],[15,\"class\",\"container\"],[13],[0,\"\\n\\t\\t\"],[11,\"div\",[]],[15,\"class\",\"row\"],[13],[0,\"\\n\\t\\t\\t\"],[11,\"div\",[]],[15,\"class\",\"col-lg-2 text-center\"],[13],[0,\"\\n\\t\\t\\t\"],[14],[0,\"\\n\\t\\t\\t\"],[11,\"div\",[]],[15,\"class\",\"col-lg-8 text-center\"],[13],[0,\"\\n\\t\\t\\t\\t\"],[11,\"h2\",[]],[15,\"class\",\"section-heading\"],[13],[0,\"Contact Us\"],[14],[0,\"\\n\\t\\t\\t\\t\"],[11,\"h3\",[]],[15,\"class\",\"section-subheading text-muted\"],[13],[0,\"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.\"],[14],[0,\"\\n\\t\\t\\t\"],[14],[0,\"\\n\\t\\t\"],[14],[0,\"\\n\\t\\t\"],[11,\"div\",[]],[15,\"class\",\"row\"],[13],[0,\"\\n\\t\\t\\t\"],[11,\"div\",[]],[15,\"class\",\"col-lg-12\"],[13],[0,\"\\n\\t\\t\\t\\t\"],[11,\"div\",[]],[15,\"class\",\"row\"],[13],[0,\"\\n\\t\\t\\t\\t\\t\"],[11,\"div\",[]],[15,\"class\",\"col-md-6 col-sm-6\"],[13],[0,\"\\n\"],[6,[\"if\"],[[28,[\"isSubmitted\"]]],null,{\"statements\":[[0,\"\\t\\t\\t\\t\\t\\t\\t\"],[11,\"div\",[]],[15,\"class\",\"panel panel-success\"],[13],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\\t\"],[11,\"div\",[]],[15,\"class\",\"panel-heading\"],[13],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\"],[11,\"h3\",[]],[15,\"class\",\"panel-title\"],[13],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\tThank you for contacting us.\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\"],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\"],[11,\"p\",[]],[13],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\tWe have received your enquiry and will respond to you within 24 hours.  For urgent enquiries please call us on telephone numbers .\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\"],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\\t\"],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\"],[14],[0,\"  \\n\"]],\"locals\":[]},{\"statements\":[[0,\"\\t\\t\\t\\t\\t\\t\\t\"],[11,\"div\",[]],[15,\"id\",\"form-container\"],[13],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\\t\"],[11,\"form\",[]],[15,\"name\",\"sentMessage\"],[13],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\"],[11,\"div\",[]],[15,\"class\",\"form-group\"],[13],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\"],[11,\"input\",[]],[15,\"type\",\"text\"],[15,\"class\",\"form-control\"],[15,\"placeholder\",\"Your Name\"],[15,\"id\",\"name\"],[15,\"required\",\"\"],[15,\"data-validation-required-message\",\"Please enter your name.\"],[13],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\"],[11,\"p\",[]],[15,\"class\",\"help-block text-danger\"],[13],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\"],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\"],[11,\"div\",[]],[15,\"class\",\"form-group\"],[13],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\"],[11,\"input\",[]],[15,\"type\",\"email\"],[15,\"class\",\"form-control\"],[15,\"placeholder\",\"Your Email\"],[15,\"id\",\"email\"],[15,\"required\",\"\"],[15,\"data-validation-required-message\",\"Please enter your email address.\"],[13],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\"],[11,\"p\",[]],[15,\"class\",\"help-block text-danger\"],[13],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\"],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\"],[11,\"div\",[]],[15,\"class\",\"form-group\"],[13],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\"],[11,\"input\",[]],[15,\"type\",\"tel\"],[15,\"class\",\"form-control\"],[15,\"placeholder\",\"Your Phone\"],[15,\"id\",\"phone\"],[15,\"required\",\"\"],[15,\"data-validation-required-message\",\"Please enter your phone number.\"],[13],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\"],[11,\"p\",[]],[15,\"class\",\"help-block text-danger\"],[13],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\"],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\"],[11,\"div\",[]],[15,\"class\",\"form-group\"],[13],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\"],[11,\"textarea\",[]],[15,\"class\",\"form-control\"],[15,\"placeholder\",\"Brief description of your requirement...\"],[15,\"id\",\"message\"],[15,\"required\",\"\"],[15,\"data-validation-required-message\",\"Please enter a message.\"],[13],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\"],[11,\"p\",[]],[15,\"class\",\"help-block text-danger\"],[13],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\"],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\"],[11,\"div\",[]],[15,\"class\",\"form-group submit-contact-button\"],[13],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\"],[11,\"button\",[]],[15,\"type\",\"submit\"],[15,\"class\",\"btn-contact\"],[5,[\"action\"],[[28,[null]],\"submitContact\"]],[13],[0,\"Submit\"],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\"],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\\t\"],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\"],[14],[0,\"\\n\"]],\"locals\":[]}],[0,\"\\t\\t\\t\\t\\t\"],[14],[0,\"\\n\\t\\t\\t\\t\\t\"],[11,\"div\",[]],[15,\"class\",\"col-md-3 col-sm-3\"],[13],[0,\"\\n\\t\\t\\t\\t\\t\\t\"],[11,\"h4\",[]],[15,\"class\",\"service-heading\"],[13],[0,\"Address\"],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\"],[11,\"p\",[]],[15,\"class\",\"text-muted\"],[13],[0,\" \"],[11,\"i\",[]],[15,\"class\",\"fa fa-map-marker\"],[13],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t307 5th Ave, 16th Floor \"],[11,\"br\",[]],[13],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t New York, NY 10016\\n\\t\\t\\t\\t\\t\\t\"],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\"],[11,\"h4\",[]],[15,\"class\",\"service-heading\"],[13],[0,\"Phone\"],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\"],[11,\"p\",[]],[15,\"class\",\"text-muted\"],[13],[0,\" \\n\\t\\t\\t\\t\\t\\t\\t\"],[11,\"i\",[]],[15,\"class\",\"fa fa-phone\"],[13],[14],[0,\" 212-222-1234\\n\\t\\t\\t\\t\\t\\t\"],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\"],[11,\"h4\",[]],[15,\"class\",\"service-heading\"],[13],[0,\"Fax\"],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\"],[11,\"p\",[]],[15,\"class\",\"text-muted\"],[13],[0,\" \\n\\t\\t\\t\\t\\t\\t\\t\"],[11,\"i\",[]],[15,\"class\",\"fa fa-fax\"],[13],[14],[0,\" 212-630-7862\\n\\t\\t\\t\\t\\t\\t\"],[14],[0,\"    \\n\\t\\t\\t\\t\\t\"],[14],[0,\"\\n\\t\\t\\t\\t\\t\"],[11,\"div\",[]],[15,\"class\",\"col-md-3 col-sm-3\"],[13],[0,\"\\n\\t\\t\\t\\t\\t\\t\"],[11,\"h4\",[]],[15,\"class\",\"service-heading\"],[13],[0,\"Email\"],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\"],[11,\"p\",[]],[15,\"class\",\"text-muted\"],[13],[0,\" \\n\\t\\t\\t\\t\\t\\t\\t\"],[11,\"i\",[]],[15,\"class\",\"fa fa-envelope\"],[13],[14],[0,\" info@emberdemo.com\\n\\t\\t\\t\\t\\t\\t\"],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\"],[11,\"h4\",[]],[15,\"class\",\"service-heading\"],[13],[0,\"Connect\"],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\"],[11,\"ul\",[]],[15,\"class\",\"list-inline social-buttons\"],[13],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\"],[11,\"li\",[]],[13],[11,\"a\",[]],[15,\"href\",\"#\"],[13],[11,\"i\",[]],[15,\"class\",\"fa fa-facebook\"],[13],[14],[14],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\"],[11,\"li\",[]],[13],[11,\"a\",[]],[15,\"href\",\"#\"],[13],[11,\"i\",[]],[15,\"class\",\"fa fa-twitter\"],[13],[14],[14],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\"],[11,\"li\",[]],[13],[11,\"a\",[]],[15,\"href\",\"#\"],[13],[11,\"i\",[]],[15,\"class\",\"fa fa-linkedin\"],[13],[14],[14],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\"],[11,\"li\",[]],[13],[11,\"a\",[]],[15,\"href\",\"#\"],[13],[11,\"i\",[]],[15,\"class\",\"fa fa fa-pinterest-p\"],[13],[14],[14],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\"],[11,\"li\",[]],[13],[11,\"a\",[]],[15,\"href\",\"#\"],[13],[11,\"i\",[]],[15,\"class\",\"fa fa-vimeo\"],[13],[14],[14],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\"],[14],[0,\"   \\n\\t\\t\\t\\t\\t\"],[14],[0,\"\\n\\t\\t\\t\\t\\t\"],[11,\"div\",[]],[15,\"class\",\"clearfix\"],[13],[14],[0,\"\\n\\t\\t\\t\\t\"],[14],[0,\"\\n\\t\\t\\t\"],[14],[0,\"\\n\\t\\t\"],[14],[0,\"\\n\\t\"],[14],[0,\"\\n\"],[14]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "ember-demo/templates/components/comp-contact.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "wDZ5x+J9", "block": "{\"statements\":[[4,\" Contact Section \"],[0,\"\\n\"],[11,\"section\",[]],[15,\"id\",\"contact\"],[13],[0,\"\\n\\t\"],[11,\"div\",[]],[15,\"class\",\"container\"],[13],[0,\"\\n\\t\\t\"],[11,\"div\",[]],[15,\"class\",\"row\"],[13],[0,\"\\n\\t\\t\\t\"],[11,\"div\",[]],[15,\"class\",\"col-lg-2 text-center\"],[13],[0,\"\\n\\t\\t\\t\"],[14],[0,\"\\n\\t\\t\\t\"],[11,\"div\",[]],[15,\"class\",\"col-lg-8 text-center\"],[13],[0,\"\\n\\t\\t\\t\\t\"],[11,\"h2\",[]],[15,\"class\",\"section-heading\"],[13],[0,\"Contact Us\"],[14],[0,\"\\n\\t\\t\\t\\t\"],[11,\"h3\",[]],[15,\"class\",\"section-subheading text-muted\"],[13],[0,\"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.\"],[14],[0,\"\\n\\t\\t\\t\"],[14],[0,\"\\n\\t\\t\"],[14],[0,\"\\n\\t\\t\"],[11,\"div\",[]],[15,\"class\",\"row\"],[13],[0,\"\\n\\t\\t\\t\"],[11,\"div\",[]],[15,\"class\",\"col-lg-12\"],[13],[0,\"\\n\\t\\t\\t\\t\"],[11,\"div\",[]],[15,\"class\",\"row\"],[13],[0,\"\\n\\t\\t\\t\\t\\t\"],[11,\"div\",[]],[15,\"class\",\"col-md-6 col-sm-6\"],[13],[0,\"\\n\"],[6,[\"if\"],[[28,[\"isSubmitted\"]]],null,{\"statements\":[[0,\"\\t\\t\\t\\t\\t\\t\\t\"],[11,\"div\",[]],[15,\"class\",\"panel panel-success\"],[13],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\\t\"],[11,\"div\",[]],[15,\"class\",\"panel-heading\"],[13],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\"],[11,\"h3\",[]],[15,\"class\",\"panel-title\"],[13],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\tThank you for contacting us.\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\"],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\"],[11,\"p\",[]],[13],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\tWe have received your enquiry and will respond to you within 24 hours.  For urgent enquiries please call us on telephone numbers .\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\"],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\\t\"],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\"],[14],[0,\"  \\n\"]],\"locals\":[]},{\"statements\":[[0,\"\\t\\t\\t\\t\\t\\t\\t\"],[11,\"div\",[]],[15,\"id\",\"form-container\"],[13],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\\t\"],[11,\"form\",[]],[15,\"name\",\"sentMessage\"],[13],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\"],[11,\"div\",[]],[15,\"class\",\"form-group\"],[13],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\"],[1,[33,[\"input\"],null,[[\"type\",\"class\",\"placeholder\",\"id\",\"value\"],[\"text\",\"form-control\",\"Your Name\",\"name\",[28,[\"name\"]]]]],false],[0,\"\\n\"],[6,[\"if\"],[[28,[\"showErrors\"]]],null,{\"statements\":[[0,\"\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\"],[11,\"p\",[]],[15,\"class\",\"help-block text-danger\"],[13],[1,[28,[\"errors\",\"name\"]],false],[14],[0,\"\\n\"]],\"locals\":[]},null],[0,\"\\t\\t\\t\\t\\t\\t\\t\\t\\t\"],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\"],[11,\"div\",[]],[15,\"class\",\"form-group\"],[13],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\"],[1,[33,[\"input\"],null,[[\"type\",\"class\",\"placeholder\",\"id\",\"value\"],[\"email\",\"form-control\",\"Your Email\",\"email\",[28,[\"email\"]]]]],false],[0,\"\\n\"],[6,[\"if\"],[[28,[\"showErrors\"]]],null,{\"statements\":[[0,\"\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\"],[11,\"p\",[]],[15,\"class\",\"help-block text-danger\"],[13],[1,[28,[\"errors\",\"email\"]],false],[14],[0,\"\\n\"]],\"locals\":[]},null],[0,\"\\t\\t\\t\\t\\t\\t\\t\\t\\t\"],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\"],[11,\"div\",[]],[15,\"class\",\"form-group\"],[13],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\"],[1,[33,[\"input\"],null,[[\"type\",\"class\",\"placeholder\",\"id\",\"value\"],[\"tel\",\"form-control\",\"Your Phone\",\"phone\",[28,[\"phone\"]]]]],false],[0,\"\\n\"],[6,[\"if\"],[[28,[\"showErrors\"]]],null,{\"statements\":[[0,\"\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\"],[11,\"p\",[]],[15,\"class\",\"help-block text-danger\"],[13],[1,[28,[\"errors\",\"phone\"]],false],[14],[0,\"\\n\"]],\"locals\":[]},null],[0,\"\\t\\t\\t\\t\\t\\t\\t\\t\\t\"],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\"],[11,\"div\",[]],[15,\"class\",\"form-group\"],[13],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\"],[1,[33,[\"textarea\"],null,[[\"class\",\"placeholder\",\"id\",\"value\"],[\"form-control\",\"Brief description of your requirement...\",\"message\",[28,[\"description\"]]]]],false],[0,\"\\n\"],[6,[\"if\"],[[28,[\"showErrors\"]]],null,{\"statements\":[[0,\"\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\"],[11,\"p\",[]],[15,\"class\",\"help-block text-danger\"],[13],[1,[28,[\"errors\",\"description\"]],false],[14],[0,\"\\n\"]],\"locals\":[]},null],[0,\"\\t\\t\\t\\t\\t\\t\\t\\t\\t\"],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\"],[11,\"div\",[]],[15,\"class\",\"form-group submit-contact-button\"],[13],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\"],[11,\"button\",[]],[15,\"type\",\"submit\"],[15,\"class\",\"btn-contact\"],[5,[\"action\"],[[28,[null]],\"submitContact\"]],[13],[0,\"Submit\"],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\"],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\\t\"],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\"],[14],[0,\"\\n\"]],\"locals\":[]}],[0,\"\\t\\t\\t\\t\\t\"],[14],[0,\"\\n\\t\\t\\t\\t\\t\"],[11,\"div\",[]],[15,\"class\",\"col-md-3 col-sm-3\"],[13],[0,\"\\n\\t\\t\\t\\t\\t\\t\"],[11,\"h4\",[]],[15,\"class\",\"service-heading\"],[13],[0,\"Address\"],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\"],[11,\"p\",[]],[15,\"class\",\"text-muted\"],[13],[0,\" \"],[11,\"i\",[]],[15,\"class\",\"fa fa-map-marker\"],[13],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t307 5th Ave, 16th Floor \"],[11,\"br\",[]],[13],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t New York, NY 10016\\n\\t\\t\\t\\t\\t\\t\"],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\"],[11,\"h4\",[]],[15,\"class\",\"service-heading\"],[13],[0,\"Phone\"],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\"],[11,\"p\",[]],[15,\"class\",\"text-muted\"],[13],[0,\" \\n\\t\\t\\t\\t\\t\\t\\t\"],[11,\"i\",[]],[15,\"class\",\"fa fa-phone\"],[13],[14],[0,\" 212-222-1234\\n\\t\\t\\t\\t\\t\\t\"],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\"],[11,\"h4\",[]],[15,\"class\",\"service-heading\"],[13],[0,\"Fax\"],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\"],[11,\"p\",[]],[15,\"class\",\"text-muted\"],[13],[0,\" \\n\\t\\t\\t\\t\\t\\t\\t\"],[11,\"i\",[]],[15,\"class\",\"fa fa-fax\"],[13],[14],[0,\" 212-630-7862\\n\\t\\t\\t\\t\\t\\t\"],[14],[0,\"    \\n\\t\\t\\t\\t\\t\"],[14],[0,\"\\n\\t\\t\\t\\t\\t\"],[11,\"div\",[]],[15,\"class\",\"col-md-3 col-sm-3\"],[13],[0,\"\\n\\t\\t\\t\\t\\t\\t\"],[11,\"h4\",[]],[15,\"class\",\"service-heading\"],[13],[0,\"Email\"],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\"],[11,\"p\",[]],[15,\"class\",\"text-muted\"],[13],[0,\" \\n\\t\\t\\t\\t\\t\\t\\t\"],[11,\"i\",[]],[15,\"class\",\"fa fa-envelope\"],[13],[14],[0,\" info@emberdemo.com\\n\\t\\t\\t\\t\\t\\t\"],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\"],[11,\"h4\",[]],[15,\"class\",\"service-heading\"],[13],[0,\"Connect\"],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\"],[11,\"ul\",[]],[15,\"class\",\"list-inline social-buttons\"],[13],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\"],[11,\"li\",[]],[13],[11,\"a\",[]],[15,\"href\",\"#\"],[13],[11,\"i\",[]],[15,\"class\",\"fa fa-facebook\"],[13],[14],[14],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\"],[11,\"li\",[]],[13],[11,\"a\",[]],[15,\"href\",\"#\"],[13],[11,\"i\",[]],[15,\"class\",\"fa fa-twitter\"],[13],[14],[14],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\"],[11,\"li\",[]],[13],[11,\"a\",[]],[15,\"href\",\"#\"],[13],[11,\"i\",[]],[15,\"class\",\"fa fa-linkedin\"],[13],[14],[14],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\"],[11,\"li\",[]],[13],[11,\"a\",[]],[15,\"href\",\"#\"],[13],[11,\"i\",[]],[15,\"class\",\"fa fa fa-pinterest-p\"],[13],[14],[14],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\\t\"],[11,\"li\",[]],[13],[11,\"a\",[]],[15,\"href\",\"#\"],[13],[11,\"i\",[]],[15,\"class\",\"fa fa-vimeo\"],[13],[14],[14],[14],[0,\"\\n\\t\\t\\t\\t\\t\\t\"],[14],[0,\"   \\n\\t\\t\\t\\t\\t\"],[14],[0,\"\\n\\t\\t\\t\\t\\t\"],[11,\"div\",[]],[15,\"class\",\"clearfix\"],[13],[14],[0,\"\\n\\t\\t\\t\\t\"],[14],[0,\"\\n\\t\\t\\t\"],[14],[0,\"\\n\\t\\t\"],[14],[0,\"\\n\\t\"],[14],[0,\"\\n\"],[14]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "ember-demo/templates/components/comp-contact.hbs" } });
 });
 define("ember-demo/templates/components/comp-footer", ["exports"], function (exports) {
   "use strict";
@@ -501,6 +557,6 @@ catch(err) {
 });
 
 if (!runningTests) {
-  require("ember-demo/app")["default"].create({"name":"ember-demo","version":"0.0.0+49a4a6e3"});
+  require("ember-demo/app")["default"].create({"name":"ember-demo","version":"0.0.0+18f67625"});
 }
 //# sourceMappingURL=ember-demo.map
